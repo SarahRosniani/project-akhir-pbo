@@ -54,3 +54,79 @@ function setup() {
   hero.initImg(ab_u, ab_r, ab_d, ab_l, 50, 250);
   mp.init(fl1, fl2, fl3);
 }
+function keyPressed() {
+  if (p == false) {
+    if (keyCode === ENTER) {
+      show_hint();
+      level.setLevel(1);
+      hero.life = 5;
+      hero.score = 0;
+      p = true;
+    }
+  }
+  if (gameover) {
+    if (keyCode === ENTER) {
+      gameover = false;
+      p = false;
+    }
+  }
+}
+
+function show_hint() {
+  background(255);
+  textSize(100);
+  textFont("Comic Sans MS");
+  fill(0, 0, 0);
+  text("3", 280, 120);
+  hint.resize(500, 200);
+  image(hint, 50, 150);
+  setTimeout(function () {
+    background(255);
+    fill(0, 0, 0);
+    text("2", 280, 120);
+    hint.resize(500, 200);
+    image(hint, 50, 150);
+  }, 750);
+  setTimeout(function () {
+    background(255);
+    fill(0, 0, 0);
+    text("1", 280, 120);
+    hint.resize(500, 200);
+    image(hint, 50, 150);
+  }, 1500);
+}
+
+function draw() {
+  if (gameover) {
+    m[0].resize(60, 60);
+    m[1].resize(60, 60);
+    m[2].resize(60, 60);
+    m[3].resize(60, 60);
+    background(255);
+    image(m[0], 100, 10);
+    image(m[1], 450, 120);
+    image(m[2], 250, 180);
+    image(m[3], 300, 350);
+    image(m[0], 20, 350);
+    fill(200, 40, 40);
+    textFont("Comic Sans MS");
+    textSize(80);
+    text("Game Over!", 90, 300);
+    fill(250, 200, 100);
+    textSize(30);
+    text("Score : " + hero.score, 250, 120);
+    fill(0, 0, 0);
+    textSize(20);
+    text("enter to return to main menu..", 300, 470);
+  } else {
+    if (!p) {
+      bg.resize(600, 500);
+      image(bg, 0, 0);
+    } else {
+      setTimeout(function () {
+        background(0);
+        playGame();
+      }, 2250);
+    }
+  }
+}
